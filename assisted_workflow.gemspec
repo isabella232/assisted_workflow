@@ -21,6 +21,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rr"
   gem.add_development_dependency "fakefs"
+  gem.add_development_dependency "minitest"
   
   gem.add_dependency "thor", "~> 0.18.1"
   gem.add_dependency "jiralicious", "~> 0.4.0"

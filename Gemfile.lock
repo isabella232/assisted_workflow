@@ -49,11 +49,20 @@ GEM
       hashie (>= 1.1)
       httparty (>= 0.10)
       json (>= 1.6, < 1.9.0)
+<<<<<<< HEAD
       nokogiri
       oauth
     json (1.8.2)
     mini_portile (0.6.2)
     minitest (5.6.1)
+=======
+    json (1.8.1)
+    libxml-ruby (2.7.0)
+    mime-types (2.1)
+    mini_portile (0.5.2)
+    minitest (5.6.1)
+    multi_json (1.8.4)
+>>>>>>> using ruby 2.2.2
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     nokogiri (1.6.6.2)
@@ -61,7 +70,21 @@ GEM
     oauth (0.4.7)
     octokit (2.7.2)
       sawyer (~> 0.5.2)
+<<<<<<< HEAD
     rake (10.4.2)
+=======
+    pivotal-tracker (0.5.12)
+      builder
+      crack
+      happymapper (>= 0.3.2)
+      nokogiri (>= 1.4.3)
+      nokogiri (>= 1.5.5)
+      nokogiri-happymapper (>= 0.5.4)
+      rest-client (~> 1.6.0)
+    rake (10.1.1)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+>>>>>>> using ruby 2.2.2
     rr (1.1.2)
     sawyer (0.5.5)
       addressable (~> 2.3.5)
@@ -90,5 +113,6 @@ PLATFORMS
 DEPENDENCIES
   assisted_workflow!
   fakefs
+  minitest
   rake
   rr

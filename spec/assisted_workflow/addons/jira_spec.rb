@@ -74,7 +74,6 @@ describe AssistedWorkflow::Addons::Jira do
     
     story = @jira.find_story("aw-01")
     story.id.must_equal "aw-01"
-    story.other_id.must_match /jirauser/
   end
   
   it "returns pending stories" do

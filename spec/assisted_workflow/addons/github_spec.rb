@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'pivotal_tracker'
 require 'assisted_workflow/addons/github'
 
 describe AssistedWorkflow::Addons::Github do
@@ -25,25 +24,25 @@ describe AssistedWorkflow::Addons::Github do
   end
   
   it "creates a new valid pull request from a pivotal story" do
-    mock(@client).create_pull_request("fakeuser/fakerepo", "master", "fakeuser.00001.new_feature", "[#00001] New Feature", "Feature description"){ pull_request }
+    mock(@client).create_pull_request("fakeuser/fakerepo", "master", "fakeuser.1234.new_feature", "[#1234] New Feature", "Feature description"){ pull_request }
     @github.create_pull_request(
-      "fakeuser.00001.new_feature", story
+      "fakeuser.1234.new_feature", story
     ).must_match /fakeuser\/fakerepo\/pull\/1/
   end
   
   it "creates a new valid pull request from a github story" do
-    mock(@client).create_pull_request_for_issue("fakeuser/fakerepo", "master", "fakeuser.00001.new_feature", 10){ pull_request }
+    mock(@client).create_pull_request_for_issue("fakeuser/fakerepo", "master", "fakeuser.1234.new_feature", 10){ pull_request }
     @github.create_pull_request(
-      "fakeuser.00001.new_feature",
+      "fakeuser.1234.new_feature",
       AssistedWorkflow::Addons::GithubStory.new(gh_issue(:number => 10))
     ).must_match /fakeuser\/fakerepo\/pull\/1/
   end
   
   it "raises on creating an invalid pull request" do
-    mock(@client).create_pull_request("fakeuser/fakerepo", "master", "fakeuser.00001.new_feature", "[#00001] New Feature", "Feature description"){ nil }
+    mock(@client).create_pull_request("fakeuser/fakerepo", "master", "fakeuser.1234.new_feature", "[#1234] New Feature", "Feature description"){ nil }
     proc { 
       @github.create_pull_request(
-        "fakeuser.00001.new_feature", story
+        "fakeuser.1234.new_feature", story
       )
     }.must_raise AssistedWorkflow::Error, "error on submiting the pull request"
   end
@@ -55,7 +54,6 @@ describe AssistedWorkflow::Addons::Github do
     
     story = @github.find_story("10")
     story.id.must_equal "10"
-    story.other_id.must_match /fakeuser/
   end
   
   it "returns pending stories" do
@@ -82,7 +80,19 @@ describe AssistedWorkflow::Addons::Github do
   private #==================================================================
   
   def story
-    @story ||= PivotalTracker::Story.new(:id => "00001", :name => "New Feature", :description => "Feature description")
+    # stubs
+    @client = TrackerApi::Client.new(token: "mypivotaltoken")
+    stub(TrackerApi::Client).new{ @client }
+
+     any_instance_of(TrackerApi::Resources::Story) do |klass|
+      stub(klass).comments { [] }
+      stub(klass).tasks { [] }
+    end
+    @story ||= TrackerApi::Resources::Story.new(:id => "1234", :name => "New Feature",
+                                                :description => "Feature description", :client => @client)
+    stub(@story).save {}
+
+    @story
   end
   
   def agent_stub

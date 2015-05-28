@@ -45,7 +45,7 @@ module AssistedWorkflow
       else
         tracker.start_story(story, :estimate => options[:estimate])
         out.print_story story
-        git.create_story_branch(story)
+        git.create_story_branch(story, github.username)
         out.next_command "after commiting your changes, submit a pull request using:", "$ aw submit"
       end
     end

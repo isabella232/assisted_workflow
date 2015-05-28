@@ -4,6 +4,18 @@ require "tracker_api"
 
 # wrapper class to pivotal api client
 module AssistedWorkflow::Addons
+
+  class PivotalStory < SimpleDelegator
+    def initialize(story)
+      super
+    end
+
+    def owners_str
+      url = "/projects/#{project_id}/stories/#{id}/owners"
+      client.get(url).body.map{|owner| owner["name"]}.join(", ")
+    end
+  end
+
   class Pivotal < Base
     required_options :fullname, :token, :project_id
   
@@ -23,7 +35,7 @@ module AssistedWorkflow::Addons
     def find_story(story_id)
       if story_id.to_i > 0
         log "loading story ##{story_id}"
-        @project.story(story_id)
+        PivotalStory.new(@project.story(story_id))
       end
     end
   
@@ -46,7 +58,10 @@ module AssistedWorkflow::Addons
       states = ["unstarted"]
       states << "started" if options[:include_started]
       filter_str = "state:#{states.join(',')} owned_by:#{@client.me.id}"
-      @project.stories(:filter => filter_str, :limit => 5)
+      stories = @project.stories(:filter => filter_str, :limit => 5)
+      stories.map do |story|
+        PivotalStory.new(story)
+      end
     end
     
     def valid?

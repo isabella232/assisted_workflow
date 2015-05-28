@@ -24,6 +24,10 @@ module AssistedWorkflow::Addons
     def current_state
       @issue.fields.current["status"]["name"]
     end
+
+    def owners_str
+      @issue.fields.current["assignee"]["name"]
+    end
     
     def estimate
       @issue.fields.current["priority"]["name"]

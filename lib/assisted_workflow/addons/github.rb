@@ -23,7 +23,11 @@ module AssistedWorkflow::Addons
     end
     
     def current_state
-      @issue.assignee.login
+      @issue.labels.map(&:name).join(",")
+    end
+
+    def owners_str
+      @issue.assignee.login if issue.assignee
     end
     
     def labels

@@ -22,12 +22,8 @@ module AssistedWorkflow::Addons
       @issue.body.to_s.gsub("\r\n", "\n")
     end
     
-    def other_id
-      @issue.assignee.login
-    end
-    
     def current_state
-      other_id
+      @issue.assignee.login
     end
     
     def labels
@@ -117,6 +113,10 @@ module AssistedWorkflow::Addons
     
     def valid?
       @client.user_authenticated?
+    end
+
+    def username
+      @username
     end
   end
 end

@@ -17,9 +17,9 @@ module AssistedWorkflow::Addons
     # creates a new git branch based on story attributes
     # the branch name format is:
     # => story_onwer_username.story_id.story_name
-    def create_story_branch(story)
+    def create_story_branch(story, username)
       log "creating the feature branch"
-      branch = branch_name(story)
+      branch = branch_name(story, username)
       git "checkout -b #{branch}"
       # git "push --set-upstream origin #{branch}"
     end
@@ -97,9 +97,9 @@ module AssistedWorkflow::Addons
       $? != 0
     end
     
-    def branch_name(story)
+    def branch_name(story, username)
       description = story.name.to_s.downcase.gsub(/\W/, "_").slice(0, DESCRIPTION_LIMIT)
-      [story.other_id, story.id, description].join(".").downcase
+      [username, story.id, description].join(".").downcase
     end
     
     def not_commited_changes

@@ -98,6 +98,7 @@ def install_dependencies(package_dir)
   Bundler.with_clean_env do
     sh "cd #{app_path}/ && bundle install"
   end
+  rm_f "#{app_path}/vendor/*/*/cache/*"
 end
 
 def copy_shims(package_dir)

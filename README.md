@@ -4,7 +4,7 @@
 
 AW is a CLI tool to automate software development workflows based on github pull requests.
 
-* [Github Workflow](http://scottchacon.com/2011/08/31/github-flow.html)
+* [Github Flow](https://guides.github.com/introduction/flow/)
 
 Here in [Inaka](http://inaka.net) we have the following workflow steps:
 

@@ -15,6 +15,7 @@ describe AssistedWorkflow::Addons::Pivotal do
     stub(TrackerApi::Client).new{ @client }
     @project = TrackerApi::Resources::Project.new(client: @client, id: 1)
     stub(@client).project(@configuration["project_id"]){ @project }
+    stub(@client).me{ TrackerApi::Resources::Me.new }
 
     @pivotal = AssistedWorkflow::Addons::Pivotal.new(nil, @configuration)
   end
@@ -66,7 +67,6 @@ describe AssistedWorkflow::Addons::Pivotal do
         story_stub(:id => "100002", :project_id => @project.id)
       ]
     end
-    stub(@client).me{ TrackerApi::Resources::Me.new }
 
     stories = @pivotal.pending_stories(:include_started => true)
     stories.size.must_equal 2

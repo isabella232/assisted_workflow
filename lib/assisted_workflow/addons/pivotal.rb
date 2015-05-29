@@ -43,6 +43,12 @@ module AssistedWorkflow::Addons
       log "starting story ##{story.id}"
       options.delete(:estimate) if options[:estimate].nil?
       update_story!(story, options.merge(:current_state => "started"))
+
+      owner_ids = story.owner_ids
+      if owner_ids.empty? || !owner_ids.include?(@client.me.id)
+        log "assigning story ##{story.id}"
+        update_story!(story, :owner_ids => owner_ids.dup << @client.me.id)
+      end
     end
 
     def finish_story(story, options = {})

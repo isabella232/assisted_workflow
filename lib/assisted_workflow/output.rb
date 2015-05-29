@@ -25,11 +25,7 @@ module AssistedWorkflow
     def print_stories(title, stories, options = {})
       print_title title
       rows = stories.map do |story|
-        if options[:all]
-          [story.id, story.current_state, story.name]
-        else
-          [story.id, story.estimate, story.name]
-        end
+        [story.id, story.current_state, story.owners_str, story.name]
       end
       print_table(rows)
     end

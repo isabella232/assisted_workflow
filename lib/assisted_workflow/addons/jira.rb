@@ -21,12 +21,12 @@ module AssistedWorkflow::Addons
       @issue.summary
     end
     
-    def other_id
-      @issue.fields.current["assignee"]["name"].split.join
-    end
-    
     def current_state
       @issue.fields.current["status"]["name"]
+    end
+
+    def owners_str
+      @issue.fields.current["assignee"]["name"]
     end
     
     def estimate

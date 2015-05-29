@@ -1,18 +1,30 @@
 require "assisted_workflow/exceptions"
 require "assisted_workflow/addons/base"
-require 'pivotal_tracker'
+require "tracker_api"
 
 # wrapper class to pivotal api client
 module AssistedWorkflow::Addons
+
+  class PivotalStory < SimpleDelegator
+    def initialize(story)
+      super
+    end
+
+    def owners_str
+      url = "/projects/#{project_id}/stories/#{id}/owners"
+      client.get(url).body.map{|owner| owner["name"]}.join(", ")
+    end
+  end
+
   class Pivotal < Base
     required_options :fullname, :token, :project_id
   
     def initialize(output, options = {})
       super
 
-      PivotalTracker::Client.token = options["token"]
+      @client = TrackerApi::Client.new(token: options["token"])
       begin
-        @project = PivotalTracker::Project.find(options["project_id"])
+        @project = @client.project(options["project_id"])
       rescue
         raise AssistedWorkflow::Error, "pivotal project #{options["project_id"]} not found."
       end
@@ -23,22 +35,27 @@ module AssistedWorkflow::Addons
     def find_story(story_id)
       if story_id.to_i > 0
         log "loading story ##{story_id}"
-        story = @project.stories.find(story_id)
-        story.other_id = @username || @fullname
-        story.other_id = story.other_id.to_s.downcase.split.join
-        story
+        PivotalStory.new(@project.story(story_id))
       end
     end
   
     def start_story(story, options = {})
       log "starting story ##{story.id}"
-      update_story! story, options.merge(:current_state => "started")
+      options.delete(:estimate) if options[:estimate].nil?
+      update_story!(story, options.merge(:current_state => "started"))
+
+      owner_ids = story.owner_ids
+      if owner_ids.empty? || !owner_ids.include?(@client.me.id)
+        log "assigning story ##{story.id}"
+        update_story!(story, :owner_ids => owner_ids.dup << @client.me.id)
+      end
     end
-  
+
     def finish_story(story, options = {})
       log "finishing story ##{story.id}"
-      if update_story! story, :current_state => finished_state(story)
-        story.notes.create(:text => options[:note]) if options[:note]
+      saved = update_story! story, :current_state => finished_state(story)
+      if saved && options[:note]
+        add_comment_to_story(story, options[:note])
       end
     end
   
@@ -46,14 +63,27 @@ module AssistedWorkflow::Addons
       log "loading pending stories"
       states = ["unstarted"]
       states << "started" if options[:include_started]
-      @project.stories.all(:state => states, :owned_by => @fullname, :limit => 5)
+      filter_str = "state:#{states.join(',')} owned_by:#{@client.me.id}"
+      stories = @project.stories(:filter => filter_str, :limit => 5)
+      stories.map do |story|
+        PivotalStory.new(story)
+      end
     end
     
     def valid?
       !@project.nil?
     end
-  
+
     private
+
+    def add_comment_to_story(story, text)
+      url = "/projects/#{story.project_id}/stories/#{story.id}/comments"
+      @client.post(url, params: {:text => text})
+    rescue TrackerApi::Error => e
+      body = e.response[:body]
+      msg = body["possible_fix"] || body["general_problem"]
+      raise AssistedWorkflow::Error, msg
+    end
   
     def finished_state(story)
       if story.story_type == "chore"
@@ -65,8 +95,14 @@ module AssistedWorkflow::Addons
     
     def update_story!(story, attributes)
       if story
-        story.update(attributes)
-        raise AssistedWorkflow::Error, story.errors.first.to_s if story.errors.any?
+        begin
+          story.attributes = attributes
+          story.save
+        rescue TrackerApi::Error => e
+          body = e.response[:body]
+          msg = body["possible_fix"] || body["general_problem"]
+          raise AssistedWorkflow::Error, msg
+        end
         true
       end
     end

@@ -28,6 +28,7 @@ module AssistedWorkflow
         c << "$ aw config pivotal.fullname='Your Pivotal User Name' --global"
         c << "$ aw config pivotal.token=MYPIVOTALTOKEN --global"
         c << "$ aw config github.token=MYGITHUBOAUTHTOKEN --global"
+        c << "$ aw config branch_username='Username for branch names' --global"
         c << "$ aw config pivotal.project_id=00001"
       end
     end
@@ -45,7 +46,7 @@ module AssistedWorkflow
       else
         tracker.start_story(story, :estimate => options[:estimate])
         out.print_story story
-        git.create_story_branch(story)
+        git.create_story_branch(story, configuration[:branch_username])
         out.next_command "after commiting your changes, submit a pull request using:", "$ aw submit"
       end
     end

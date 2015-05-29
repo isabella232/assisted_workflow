@@ -34,6 +34,7 @@ Releasing a new version
 1. Generate the osx package with `rake package:osx`
 1. Create a [release] for the latest tag and attach the packages
 1. Update the [homebrew formula] to point to the latest OSX package
+  * To generate the file sha256: `openssl dgst -sha256 aw-[VERSION]-osx.tar.gz`
 
 [release]: https://github.com/inaka/assisted_workflow/releases
 [homebrew formula]: https://github.com/inaka/homebrew-formulas

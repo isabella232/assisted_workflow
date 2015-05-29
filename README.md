@@ -1,6 +1,7 @@
 # Assisted Workflow (aw)
 
 [![Gem Version](https://badge.fury.io/rb/assisted_workflow.png)](http://badge.fury.io/rb/assisted_workflow) [![Build Status](https://travis-ci.org/inaka/assisted_workflow.png?branch=master)](https://travis-ci.org/inaka/assisted_workflow) [![Code Climate](https://codeclimate.com/github/inaka/assisted_workflow.png)](https://codeclimate.com/github/inaka/assisted_workflow)
+[![Dependency Status](https://gemnasium.com/inaka/assisted_workflow.svg)](https://gemnasium.com/inaka/assisted_workflow)
 
 AW is a CLI tool to automate software development workflows based on github pull requests.
 
@@ -19,6 +20,7 @@ For more details, please read more about the [Inaka's Development Workflow](http
 This gem provides a command line tool to automate tasks related with `start`, `submit` and `finish` steps.
 
 ## Contact Us
+
 For **questions** or **general comments** regarding the use of this library, please use our public
 [hipchat room](https://www.hipchat.com/gpBpW3SsT).
 
@@ -28,15 +30,20 @@ And you can check all of our open-source projects at [inaka.github.io](http://in
 
 ## Installation
 
-Add this line to your application's Gemfile:
+On OS X, use homebrew:
+
+    $ brew tap inaka/formulas
+    $ brew install assisted_workflow
+
+You can also install it as a ruby gem, adding this line to your application's Gemfile:
 
     gem 'assisted_workflow'
 
-And then execute:
+And then executing:
 
     $ bundle
 
-Or install it yourself as:
+Or installing it yourself as:
 
     $ gem install assisted_workflow
     

@@ -1,2 +1,5 @@
-pkg/
+/pkg/
 .awconfig
+/aw-*/
+aw-*.tar.gz
+/packaging/*.tar.gz

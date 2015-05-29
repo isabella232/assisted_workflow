@@ -97,8 +97,3 @@ either add an 'origin' remote that points to the GitHub repository you want to s
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
-## To-do
-
-1. add github issues support
-2. refactor addons to a base class, with access to a shell output wrapper.

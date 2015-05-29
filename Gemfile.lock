@@ -5,7 +5,7 @@ PATH
       hashie (~> 2.0.5)
       jiralicious (~> 0.4.0)
       octokit (~> 2.0)
-      thor (~> 0.18.1)
+      thor (~> 0.19)
       tracker_api (~> 0.2.0)
 
 GEM
@@ -53,7 +53,7 @@ GEM
       oauth
     json (1.8.2)
     mini_portile (0.6.2)
-    minitest (5.6.1)
+    minitest (5.7.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     nokogiri (1.6.6.2)
@@ -66,7 +66,7 @@ GEM
     sawyer (0.5.5)
       addressable (~> 2.3.5)
       faraday (~> 0.8, < 0.10)
-    thor (0.18.1)
+    thor (0.19.1)
     thread_safe (0.3.5)
     tracker_api (0.2.9)
       activemodel
@@ -90,5 +90,6 @@ PLATFORMS
 DEPENDENCIES
   assisted_workflow!
   fakefs
+  minitest
   rake
   rr

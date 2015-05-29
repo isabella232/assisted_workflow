@@ -1,5 +1,15 @@
 ### Unreleased
 
+* enchancements
+  * Moving from pivotal-tracker to tracker-api gem, in order to use api v5 (@alemata)
+  * Packaging with Traveling Ruby (@flaviogranero)
+
+### 0.3.1
+
+* bug fix
+  * Fixing issue when states/transitions are the default ones
+  * Bugfix for issues with empty descriptions
+
 ### 0.3.0
 
 * enchancements

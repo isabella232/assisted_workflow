@@ -1,5 +1,7 @@
 ### Unreleased
 
+### 0.4.0
+
 * enchancements
   * Moving from pivotal-tracker to tracker-api gem, in order to use api v5 (@alemata)
   * Packaging with Traveling Ruby (@flaviogranero)

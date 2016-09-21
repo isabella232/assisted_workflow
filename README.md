@@ -61,6 +61,7 @@ If this is your initial setup, you need to inform your pivotal and github keys t
     $ aw config pivotal.username='flavio' --global
     $ aw config pivotal.token=MYPIVOTALTOKEN --global
     $ aw config github.token=MYGITHUBOAUTHTOKEN --global
+    $ aw config branch_username='Username for branch names' --global
     
 Note we're using the --global flag, to store this info in the global config file, valid for all projects. You can get your pivotal Api Token in your [profile page](https://www.pivotaltracker.com/profile) and the github api key [following the instructions to generate an oauth token](https://help.github.com/articles/creating-an-access-token-for-command-line-use).
 

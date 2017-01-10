@@ -65,6 +65,10 @@ If this is your initial setup, you need to inform your pivotal and github keys t
     
 Note we're using the --global flag, to store this info in the global config file, valid for all projects. You can get your pivotal Api Token in your [profile page](https://www.pivotaltracker.com/profile) and the github api key [following the instructions to generate an oauth token](https://help.github.com/articles/creating-an-access-token-for-command-line-use).
 
+Make sure to create the github token with the following permissions:
+
+![Github permissions](./assets/github_permissions.png)
+
 After the global setup, you need to inform the pivotal project_id, storing it in the project .awconfig file:
 
     $ aw config pivotal.project_id=00001

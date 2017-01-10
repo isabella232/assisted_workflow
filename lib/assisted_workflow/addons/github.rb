@@ -3,7 +3,6 @@ require "assisted_workflow/addons/base"
 require "octokit"
 
 module AssistedWorkflow::Addons
-
   class GithubStory < SimpleDelegator
     def initialize(issue)
       super

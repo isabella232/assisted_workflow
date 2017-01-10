@@ -18,7 +18,7 @@ module AssistedWorkflow
     def setup
       copy_file "awconfig.global.tt", GLOBAL_CONFIG
       copy_file "awconfig.local.tt", LOCAL_CONFIG
-      if File.exists?(".git")
+      if File.exist?(".git")
         copy_file "commit-msg.tt", ".git/hooks/commit-msg"
         chmod ".git/hooks/commit-msg", "a+x"
       else
@@ -67,7 +67,7 @@ module AssistedWorkflow
     desc "finish", "Check if the changes are merged into master, removing the current feature branch"
     def finish
       check_awfile!
-      unless story_id = git.current_story_id
+      unless git.current_story_id
         raise AssistedWorkflow::Error, "story not found, make sure a feature branch in active"
       end
       git.check_merged!

@@ -67,7 +67,7 @@ file "packaging/#{RUBY_BASENAME}-linux-x86_64.tar.gz" do
 end
 
 def create_package(target)
- if RUBY_VERSION !~ /^2\.2\./
+  if RUBY_VERSION !~ /^2\.2\./
     abort "You can't package with a Ruby version other than 2.2."
   end
   package_dir = "#{PROJECT_NAME}-#{AssistedWorkflow::VERSION}-#{target}"
@@ -104,7 +104,7 @@ end
 def copy_shims(package_dir)
   shim_dir = "#{package_dir}/bin"
   mkdir_p shim_dir
-  
+
   cp "packaging/aw.sh", "#{shim_dir}/aw"
 end
 

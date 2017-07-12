@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/assisted_workflow.png)](http://badge.fury.io/rb/assisted_workflow) [![Build Status](https://travis-ci.org/inaka/assisted_workflow.png?branch=master)](https://travis-ci.org/inaka/assisted_workflow) [![Code Climate](https://codeclimate.com/github/inaka/assisted_workflow.png)](https://codeclimate.com/github/inaka/assisted_workflow)
 [![Dependency Status](https://gemnasium.com/inaka/assisted_workflow.svg)](https://gemnasium.com/inaka/assisted_workflow)
-[![Coverage Status](https://coveralls.io/repos/github/inaka/assisted_workflow/badge.svg?branch=nacho.coveralls)](https://coveralls.io/github/inaka/assisted_workflow?branch=nacho.coveralls)
+[![Coverage Status](https://coveralls.io/repos/github/inaka/assisted_workflow/badge.svg?branch=master)](https://coveralls.io/github/inaka/assisted_workflow?branch=nacho.coveralls)
 
 AW is a CLI tool to automate software development workflows based on github pull requests.
 

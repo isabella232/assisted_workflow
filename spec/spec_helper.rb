@@ -4,7 +4,8 @@
 require 'minitest/autorun'
 require 'rr'
 require 'fakefs/safe'
-
+require 'coveralls'
+Coveralls.wear!
 
 def file_content(file)
   File.read(File.expand_path("files/"+file, File.dirname(__FILE__)))

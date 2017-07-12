@@ -17,57 +17,58 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
   gem.executables   = %w( aw )
-  
+
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rr"
   gem.add_development_dependency "fakefs"
   gem.add_development_dependency "minitest"
-  
+  gem.add_development_dependency "coveralls"
+
   gem.add_dependency "thor", "~> 0.19"
   gem.add_dependency "jiralicious", "~> 0.4.0"
   gem.add_dependency "octokit", "~> 2.0"
   gem.add_dependency "hashie", "~> 2.0.5"
   gem.add_dependency "tracker_api", "~> 0.2.0"
-  
+
   gem.description   = <<desc
   `aw` is a command line tool to automate software development workflows based on github pull requests.
 desc
 
   gem.post_install_message = <<-message
 
-                       `..::/++ooooooooo+/::--`                                 
-                   `-:://:---....```......--::///:-.`                           
-               `..-:::---.```            ```...----::-..`                       
-              `.:///-`````                       .-:++::-`                      
-            `///::`    :/+oo:.`                       -:/+/-                    
-          ..-//.          ....`                         `.-/+/`                 
-          :+/.`                                            .-://.               
-        ``/+:                                               `.//-``             
-       `::-.`  `.---`  ```                                    .-://`            
-       `++`   `:sso++/+hmy-.`                                   .//-.`          
-     `.-//`    -++---:/+o/`                            `         ``:+:          
-     .----     .:::-.`````                            .--::.       :+/`         
-     -::..     .:::-`                                 `.-++-`      :+/.`        
-     -/:``     -++-.`                                   `:/::-     -/:-.        
-     :/:`      -oo-.`                    ``.--.`         ``.-.     -:-..        
-     :/:`      -++-.`                    ``.+ooo+/:+so.            -:-..        
-     :/:`      -++:-`                     `.+o+++++oso.            -:-..        
-     -/:.`     .::/+-                      `//:--//++/`            -/:..        
-     .----      `.+s/.`                    `-:.                    :+/.`        
-      `.//`       -:+ss:-.          ``.:/oso++-`                   :+:          
-       `//.``       .-:+++///++++///++++/:--``                   ``:/:          
-        .-::-        ``--:::+ss+/:::----.``                     `----.          
-         `/+/`            ../s+-.```                            -//.``          
-          .--++-    .::.`.:/:-.                               .-+ys.            
-          ``:hds++:::/:` .++-`                             .:/oo+//::-          
-        ``+oo////+yds+/-.-//.                         .--/++++/:-``:/:``        
-        `.oso--://sho+////+/-`                  ```...::/++++/::.  -::--        
-     ``.--:/:--:+/.`.:/shyss+:-..``````````.---::/+oso++/..-:://.    .++.`      
-    `:/:``:++++/--     -:/++++ooooooooooooooooo++:-.``  `-:/+/`       --::-     
-  `--``  `sdy/:.       -:::-.    `````````            -:/++-`          `/o/`    
-  `-.   .-+o/``        .--//.                      .:///:.`             -::..`  
-``...` `:///-          `.-++-                    `.:++::-               .--:-.  
-.......:ss-``            `++:.`               `.-+o/:-                    ./+-  
+                       `..::/++ooooooooo+/::--`
+                   `-:://:---....```......--::///:-.`
+               `..-:::---.```            ```...----::-..`
+              `.:///-`````                       .-:++::-`
+            `///::`    :/+oo:.`                       -:/+/-
+          ..-//.          ....`                         `.-/+/`
+          :+/.`                                            .-://.
+        ``/+:                                               `.//-``
+       `::-.`  `.---`  ```                                    .-://`
+       `++`   `:sso++/+hmy-.`                                   .//-.`
+     `.-//`    -++---:/+o/`                            `         ``:+:
+     .----     .:::-.`````                            .--::.       :+/`
+     -::..     .:::-`                                 `.-++-`      :+/.`
+     -/:``     -++-.`                                   `:/::-     -/:-.
+     :/:`      -oo-.`                    ``.--.`         ``.-.     -:-..
+     :/:`      -++-.`                    ``.+ooo+/:+so.            -:-..
+     :/:`      -++:-`                     `.+o+++++oso.            -:-..
+     -/:.`     .::/+-                      `//:--//++/`            -/:..
+     .----      `.+s/.`                    `-:.                    :+/.`
+      `.//`       -:+ss:-.          ``.:/oso++-`                   :+:
+       `//.``       .-:+++///++++///++++/:--``                   ``:/:
+        .-::-        ``--:::+ss+/:::----.``                     `----.
+         `/+/`            ../s+-.```                            -//.``
+          .--++-    .::.`.:/:-.                               .-+ys.
+          ``:hds++:::/:` .++-`                             .:/oo+//::-
+        ``+oo////+yds+/-.-//.                         .--/++++/:-``:/:``
+        `.oso--://sho+////+/-`                  ```...::/++++/::.  -::--
+     ``.--:/:--:+/.`.:/shyss+:-..``````````.---::/+oso++/..-:://.    .++.`
+    `:/:``:++++/--     -:/++++ooooooooooooooooo++:-.``  `-:/+/`       --::-
+  `--``  `sdy/:.       -:::-.    `````````            -:/++-`          `/o/`
+  `-.   .-+o/``        .--//.                      .:///:.`             -::..`
+``...` `:///-          `.-++-                    `.:++::-               .--:-.
+.......:ss-``            `++:.`               `.-+o/:-                    ./+-
  `.::.`.:/.``             `.:o+.``       ``./++o+-``                      `//-``
        `+o.                 `-:+++//:::/++++:-.`                           -----
        `++`                  ``--------::---.`                             `.-::
@@ -78,9 +79,9 @@ desc
         AW, thanks for installing Assisted Workflow!
         ============================================
 
-       Use the provided `aw` command-line tool to start a task creating a feature branch, submit a pull request with the changes and finish a task, keeping your repository clean. For more details, search for Inaka Workflow description. 
+       Use the provided `aw` command-line tool to start a task creating a feature branch, submit a pull request with the changes and finish a task, keeping your repository clean. For more details, search for Inaka Workflow description.
        Now, go to your project folder and start using it with:
-       
+
        $ aw setup
 
        Cheers,
@@ -89,5 +90,5 @@ desc
 --------------------------------------------------------------------------------
 
 message
-  
+
 end
